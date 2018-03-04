@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
       },
       errorData => {
         const fault = <Fault>errorData;
-        console.log(fault);
+        console.log(fault.error);
       }
     );
   }

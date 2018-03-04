@@ -64,7 +64,7 @@
                     </div>
                     <span id="helpBlock2" class="help-block" *ngIf="!(fieldPassword.value === fieldConfirmation.value)">Confirmation does not match Password.</span>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.invalid && !(fieldPassword.value === fieldConfirmation.value)">Submit</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.touched || signUpForm.invalid || !(fieldPassword.value === fieldConfirmation.value)">Submit</button>
             </form>
         </div>
     </div>
