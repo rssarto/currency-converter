@@ -24,10 +24,6 @@ export class SignupComponent implements OnInit {
         const returnedUser = <User>data;
         this.user = new User();
         this.router.navigate(['login']);
-      },
-      errorData => {
-        const fault = <Fault>errorData;
-        console.log(fault.error);
       }
     );
   }

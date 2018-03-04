@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			throw new SignUpException(exceptionMessage);
 		}
 		
+		
 		user.setPassword(bcryptEncoder.encode(user.getPassword()));
 		user.setEmail(user.getEmail().toLowerCase());
 		return userDao.save(user);
