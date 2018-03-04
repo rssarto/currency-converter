@@ -4,7 +4,9 @@ import { ModalContentComponent } from '../modal-content/modal-content.component'
 
 @Injectable()
 export class ModalService {
-  constructor(private modalService: BsModalService, private modalRef: BsModalRef) { }
+  constructor(private modalService: BsModalService) { }
+
+  modalRef: BsModalRef;
 
   openModal(message: string) {
     const initialState = {
@@ -14,6 +16,6 @@ export class ModalService {
       title: 'Message'
     };
     this.modalRef = this.modalService.show(ModalContentComponent, {initialState});
-    this.modalRef.content.closeBtnName = 'Close';
+    // this.modalRef.content.closeBtnName = 'Close';
   }
 }

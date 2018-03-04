@@ -8,7 +8,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 })
 export class ModalContentComponent implements OnInit {
   title: string;
-  closeBtnName: string;
+  closeBtnName = 'Close';
   list: any[] = [];
 
   constructor(public bsModalRef: BsModalRef, private modalService: BsModalService) {}
@@ -24,6 +24,5 @@ export class ModalContentComponent implements OnInit {
       title: 'Message'
     };
     this.bsModalRef = this.modalService.show(ModalContentComponent, {initialState});
-    this.bsModalRef.content.closeBtnName = 'Close';
   }
 }

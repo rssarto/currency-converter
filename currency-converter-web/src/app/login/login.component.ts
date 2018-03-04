@@ -5,7 +5,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Credentials } from '../model/credentials';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalService } from '../service/modal.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   userName: string;
   password: string;
-  // modalRef: BsModalRef;
 
   constructor(private authService: AuthService,
     private token: TokenStorage,
