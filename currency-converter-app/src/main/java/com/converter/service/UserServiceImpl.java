@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.converter.dao.UserDao;
+import com.converter.exception.SignUpException;
 import com.converter.model.User;
 
 @Service(value="userService")
@@ -25,8 +26,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private BCryptPasswordEncoder bcryptEncoder;	
 
 	@Override
-	public User save(User user) {
+	public User save(User user) throws Exception {
+		boolean isEmailAlreadyUsed = false;
+		boolean isUserNameAlreadyUsed = false;
+		
+		User alreadyRegisteredUser = userDao.findByEmail(user.getEmail());
+		if( alreadyRegisteredUser != null ) {
+			isEmailAlreadyUsed = true;
+		}
+		
+		alreadyRegisteredUser = userDao.findByUserName(user.getUserName()); 
+		if( alreadyRegisteredUser != null ) {
+			isUserNameAlreadyUsed = true;
+		}
+		
+		if( isEmailAlreadyUsed || isUserNameAlreadyUsed ) {
+			String exceptionMessage = isEmailAlreadyUsed && isUserNameAlreadyUsed ? "We already have an user registered with this user name and email address." : isEmailAlreadyUsed ? "We already have an user registered with this email address." : "We already have an user user registered with this user name.";
+			throw new SignUpException(exceptionMessage);
+		}
+		
 		user.setPassword(bcryptEncoder.encode(user.getPassword()));
+		user.setEmail(user.getEmail().toLowerCase());
 		return userDao.save(user);
 	}
 
@@ -43,20 +63,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public User findOne(String userName) {
-		return userDao.findByUserName(userName);
+	public User findOne(String userNamePassword) {
+		return userDao.findByUserName(userNamePassword);
 	}
 
 	@Override
 	public User findById(Long id) {
 		return userDao.findOne(id);
 	}
+	
+		@Override
+	public User findByEmail(String email) {
+		return userDao.findByEmail(email);
+	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = userDao.findByUserName(userName);
+	public UserDetails loadUserByUsername(String userNameEmail) throws UsernameNotFoundException {
+		User user = userDao.findByEmail(userNameEmail);
 		if( user == null ) {
-			throw new UsernameNotFoundException("Invalid user name or password.");
+			user = userDao.findByUserName(userNameEmail);
+			if( user == null ) {
+				throw new UsernameNotFoundException("Invalid user name or password.");	
+			}
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), getAuthority());
 	}
@@ -65,3 +93,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
 	}	
 }
+

@@ -6,11 +6,12 @@ import com.converter.model.User;
 
 public interface UserService {
 	
-    User save(User user);
+    User save(User user) throws Exception;
     List<User> findAll();
     void delete(long id);
-    User findOne(String username);
+    User findOne(String userNameEmail);
 
-    User findById(Long id);	
+    User findById(Long id);
+    User findByEmail(String email);
 
 }

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+          <form class="form-signin" #f="ngForm">
+              <h2 class="form-signin-heading">Please sign in</h2>
+              <div [ngClass]="fieldName.errors && (fieldName.dirty || fieldName.touched) ? 'form-group has-error' : 'form-group'">
+                  <label for="inputEmail" class="sr-only">Email address</label>
+                  <input type="email" name="userName" #fieldName="ngModel" [(ngModel)]="userName" [ngClass]="['form-control']" placeholder="User name or Email address" required autofocus>
+              </div>
+              <div [ngClass]="fieldPassword.errors && (fieldPassword.dirty || fieldPassword.touched) ? 'form-group has-error' : 'form-group'">
+                  <label for="inputPassword" class="sr-only">Password</label>
+                  <input type="password" name="password" #fieldPassword="ngModel" [(ngModel)]="password" class="form-control" placeholder="Password" required>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="login()" [disabled]="!f.valid">Sign in</button>
+          </form>
+      </div>
+  </div>
+</div>

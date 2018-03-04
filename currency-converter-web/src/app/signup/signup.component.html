@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Registration</h1>
+            <form (submit)="onSignUp()" #signUpForm="ngForm">
+                <div [ngClass]="fieldUserName.errors && (fieldUserName.dirty || fieldUserName.touched) ? 'form-group has-error' : 'form-group has-success'">
+                    <label for="userName">User name</label>
+                    <input type="text" [ngClass]="['form-control']" #fieldUserName="ngModel" name="userName" placeholder="User name" [(ngModel)]="user.userName" required minlength="4">
+                    <div *ngIf="fieldUserName.errors && (fieldUserName.dirty || fieldUserName.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldUserName.errors.required">The user name is required.</span>
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldUserName.errors.minlength">User name must be at least 4 characters long.</span>
+                    </div>
+                </div>
+                <div [ngClass]="fieldEmail.errors && (fieldEmail.dirty || fieldEmail.touched) ? 'form-group has-error' : 'form-group'">
+                  <label for="email">Email address</label>
+                  <input type="email" [ngClass]="['form-control']" #fieldEmail="ngModel" name="email" placeholder="Email" [(ngModel)]="user.email" required [email]="true">
+                  <div *ngIf="fieldEmail.errors && (fieldEmail.dirty || fieldEmail.touched)">
+                    <span id="helpBlock2" class="help-block" *ngIf="fieldEmail.errors.required">The user name is required.</span>
+                    <span id="helpBlock2" class="help-block" *ngIf="fieldEmail.errors.email && !fieldEmail.errors.required">Invalid e-mail address.</span>
+                  </div>
+                </div>
+                <div [ngClass]="fieldCountry.errors && (fieldCountry.dirty || fieldCountry.touched) ? 'form-group has-error' : 'form-group'">
+                    <label for="country">Country</label>
+                    <input type="text" [ngClass]="['form-control']" #fieldCountry="ngModel" name="country" placeholder="Country" [(ngModel)]="user.country" required>
+                    <div *ngIf="fieldCountry.errors && (fieldCountry.dirty || fieldCountry.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldCountry.errors.required">The Country is required.</span>
+                    </div>
+                  </div>
+                <div [ngClass]="fieldZipCode.errors && (fieldZipCode.dirty || fieldZipCode.touched) ? 'form-group has-error' : 'form-group'">
+                    <label for="street">Zip Code</label>
+                    <input type="text" [ngClass]="['form-control']" #fieldZipCode="ngModel" name="zipCode" placeholder="Zip Code" [(ngModel)]="user.zipCode" required>
+                    <div *ngIf="fieldZipCode.errors && (fieldZipCode.dirty || fieldZipCode.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldZipCode.errors.required">The Zip Code is required.</span>
+                    </div>
+                </div>
+                <div [ngClass]="fieldStreet.errors && (fieldStreet.dirty || fieldStreet.touched) ? 'form-group has-error' : 'form-group'">
+                    <label for="street">Street Address</label>
+                    <input type="text" [ngClass]="['form-control']" #fieldStreet="ngModel" name="street" placeholder="Street Address" [(ngModel)]="user.street" required>
+                    <div *ngIf="fieldStreet.errors && (fieldStreet.dirty || fieldStreet.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldStreet.errors.required">The Street is required.</span>
+                    </div>
+                </div>
+                <div [ngClass]="fieldCity.errors && (fieldCity.dirty || fieldCity.touched) ? 'form-group has-error' : 'form-group'">
+                    <label for="city">City</label>
+                    <input type="text" [ngClass]="['form-control']" #fieldCity="ngModel" name="city" placeholder="City" [(ngModel)]="user.city" required>
+                    <div *ngIf="fieldCity.errors && (fieldCity.dirty || fieldCity.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldCity.errors.required">The City is required.</span>
+                    </div>
+                </div>
+                <div [ngClass]="fieldPassword.errors && (fieldPassword.dirty || fieldPassword.touched) ? 'form-group has-error' : 'form-group'">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" [ngClass]="['form-control']" #fieldPassword="ngModel" name="password" placeholder="Password" [(ngModel)]="user.password" required minlength="5">
+                  <div *ngIf="fieldPassword.errors && (fieldPassword.dirty || fieldPassword.touched)">
+                    <span id="helpBlock2" class="help-block" *ngIf="fieldPassword.errors.minlength">The Password must be at least 5 characters long.</span>
+                    <span id="helpBlock2" class="help-block" *ngIf="fieldPassword.errors.required">The Password is required.</span>
+                  </div>
+              </div>
+                <div [ngClass]="(fieldConfirmation.errors && (fieldConfirmation.dirty || fieldConfirmation.touched)) || !(fieldPassword.value === fieldConfirmation.value) ? 'form-group has-error' : 'form-group'">
+                    <label for="exampleInputPassword1">Password Confirmation</label>
+                    <input type="password" [ngClass]="['form-control']" #fieldConfirmation="ngModel" name="confirmation" placeholder="Password Confirmation" [(ngModel)]="user.confirmation" required minlength="5">
+                    <div *ngIf="fieldConfirmation.errors && (fieldConfirmation.dirty || fieldConfirmation.touched)">
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldConfirmation.errors.minlength">The Confirmation must be at least 5 characters long.</span>
+                      <span id="helpBlock2" class="help-block" *ngIf="fieldConfirmation.errors.required">The Confirmation is required.</span>
+                    </div>
+                    <span id="helpBlock2" class="help-block" *ngIf="!(fieldPassword.value === fieldConfirmation.value)">Confirmation does not match Password.</span>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.invalid && !(fieldPassword.value === fieldConfirmation.value)">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+

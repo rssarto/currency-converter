@@ -1,5 +1,6 @@
 package com.converter.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +17,12 @@ public class User {
 	@SequenceGenerator(name="user_id_seq", sequenceName="user_id_seq", allocationSize=1)
 	private long id;
 	
+	@Column(unique=true)
 	private String userName;
 	
 	private String password;
 	
+	@Column(unique=true)
 	private String email;
 	
 	private String street;
