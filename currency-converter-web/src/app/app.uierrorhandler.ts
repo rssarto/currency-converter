@@ -10,7 +10,11 @@ export class UIErrorHandler extends ErrorHandler {
   handleError(error) {
     super.handleError(error);
     if (error instanceof HttpErrorResponse) {
-      this.modalService.openModal(`${error.error.message}`);
+      if ( error.error.message === undefined ) {
+        this.modalService.openModal(`${error.statusText}`);
+      } else {
+        this.modalService.openModal(`${error.error.message}`);
+      }
     } else {
       this.modalService.openModal('An Unexpected fail ocurred. Please try again later.');
     }

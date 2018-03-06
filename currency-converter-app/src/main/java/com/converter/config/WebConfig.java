@@ -13,8 +13,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/logout");
 		registry.addMapping("/signup");
-		registry.addMapping("/token/**")
-			.allowedMethods("POST", "GET");
+		registry.addMapping("/token/**");
+		registry.addMapping("/api/**")
+			.allowedMethods("GET", "HEAD", "POST", "PUT", "OPTIONS");
 	}	
 
 }

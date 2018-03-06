@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <h2>Do your Conversion</h2>
+  <form #formConversion="ngForm" class="form-horizontal">
+    <div class="form-group">
+      <label for="sourceCurrency" class="col-sm-4 control-label">Source Currency</label>
+      <div class="col-xs-8 pull-right">
+          <select class="form-control" id="sourceCurrency">
+              <option *ngFor="let currency of currencyList" value="{{currency.initials}}">{{currency.initials + '-' + currency.description}}</option>
+          </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label  class="col-sm-4 control-label" for="exampleInputAmount">Amount</label>
+      <div class="col-xs-8 pull-right">
+          <div class="input-group">
+              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+              <div class="input-group-addon">.00</div>
+          </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="destinationCurrency" class="col-sm-4 control-label">Destination Currency</label>
+      <div class="col-xs-8 pull-right">
+          <select class="form-control" id="destinationCurrency">
+              <option>BAM - Bosnia-Herzegovina Convertible Mark</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+          </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="disabledTextInput">Result</label>
+      <div class="col-xs-8 pull-right">
+          <input type="text" id="disabledTextInput" class="form-control" disabled>
+      </div>
+    </div>
+  </form>
+</div>

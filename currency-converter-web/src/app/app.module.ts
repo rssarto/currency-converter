@@ -2,7 +2,7 @@ import { AppsettingsService } from './service/appsettings.service';
 import { NgModule, Injectable, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -24,6 +24,11 @@ import { LogoutComponent } from './logout/logout.component';
 import { UserService } from './service/user.service';
 import { ModalService } from './service/modal.service';
 import { UIErrorHandler } from './app.uierrorhandler';
+import { PanelComponent } from './panel/panel.component';
+import { ConversionComponent } from './conversion/conversion.component';
+import { HistoricComponent } from './historic/historic.component';
+import { CurrencyService } from './service/currency.service';
+import { Interceptor } from './app.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,10 @@ import { UIErrorHandler } from './app.uierrorhandler';
     NotfoundComponent,
     ModalContentComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    PanelComponent,
+    ConversionComponent,
+    HistoricComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +56,9 @@ import { UIErrorHandler } from './app.uierrorhandler';
     // Add here components that are created dynamically.
     ModalContentComponent
   ],
-  providers: [AuthService, TokenStorage, AppsettingsService, BsModalService, BsModalRef, UserService, ModalService,
-             { provide: ErrorHandler, useClass: UIErrorHandler }],
+  providers: [AuthService, TokenStorage, AppsettingsService, BsModalService, BsModalRef, UserService, ModalService, CurrencyService,
+             { provide: ErrorHandler, useClass: UIErrorHandler },
+             { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

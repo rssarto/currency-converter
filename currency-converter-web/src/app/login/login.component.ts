@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService.attemptAuth(new Credentials(this.userName, this.password)).subscribe(
       data => {
         this.token.saveToken(data.token);
-        this.router.navigate(['']);
+        this.router.navigate(['panel']);
       },
       errorData => {
         this.appModalService.openModal('Invalid credentials.');
