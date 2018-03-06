@@ -1,4 +1,8 @@
+import { Subscription } from 'rxjs/Subscription';
+import { Quotation } from './../model/quotation';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../service/data.service';
+import { CurrencyService } from '../service/currency.service';
 
 @Component({
   selector: 'app-historic',
@@ -6,10 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historic.component.css']
 })
 export class HistoricComponent implements OnInit {
+  subscription: Subscription;
 
-  constructor() { }
+  newQuotation = new Quotation();
+  lastQuotations: any;
+
+  constructor(private dataService: DataService, private currencyService: CurrencyService) {
+    this.subscription = this.dataService.getMessage().subscribe(message => { this.newQuotation = message; });
+  }
 
   ngOnInit() {
+    this.onHistoric();
+  }
+
+  onHistoric() {
+    this.currencyService.historic().subscribe(
+      data => {
+        this.lastQuotations = data;
+      }
+    );
   }
 
 }

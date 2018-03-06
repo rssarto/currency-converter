@@ -1,15 +1,20 @@
 package com.converter.model;
 
+import java.util.List;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS")
+@Table(name="USERS", schema="public")
 public class User {
 	
 	@Id
@@ -32,6 +37,10 @@ public class User {
 	private String city;
 	
 	private String country;
+	
+	@Basic(fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user")
+	private List<Quotation> quotations;
 
 	public long getId() {
 		return id;

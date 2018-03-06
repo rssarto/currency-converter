@@ -1,3 +1,4 @@
+import { DataService } from './service/data.service';
 import { AppsettingsService } from './service/appsettings.service';
 import { NgModule, Injectable, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -57,6 +58,7 @@ import { Interceptor } from './app.interceptor';
     ModalContentComponent
   ],
   providers: [AuthService, TokenStorage, AppsettingsService, BsModalService, BsModalRef, UserService, ModalService, CurrencyService,
+              DataService,
              { provide: ErrorHandler, useClass: UIErrorHandler },
              { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true } ],
   bootstrap: [AppComponent]

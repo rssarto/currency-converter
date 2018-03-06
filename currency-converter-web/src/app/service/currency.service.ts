@@ -1,3 +1,4 @@
+import { Quotation } from './../model/quotation';
 import { Observable } from 'rxjs/Observable';
 import { Currency } from './../model/currency';
 import { HttpClient } from '@angular/common/http';
@@ -18,4 +19,11 @@ export class CurrencyService {
     return this.http.get<Currency[]>(this.appSettings.currencyListUrl);
   }
 
+  quote(quotation: Quotation) {
+    return this.http.post<Quotation>(this.appSettings.quotationUrl, quotation);
+  }
+
+  historic() {
+    return this.http.get<Quotation[]>(this.appSettings.historicUrl);
+  }
 }
