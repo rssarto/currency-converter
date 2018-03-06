@@ -11,6 +11,9 @@ export class ConversionComponent implements OnInit {
 
   currencyList: Currency[];
   currency: Currency;
+  sourceCurrency: string;
+  destinationCurrency: string;
+  amount: number;
 
   constructor(private currencyService: CurrencyService) { }
 
@@ -20,6 +23,10 @@ export class ConversionComponent implements OnInit {
         this.currencyList = <Currency[]> data;
       }
     );
+  }
+
+  onConversion() {
+    console.log('conversion');
   }
 
 }

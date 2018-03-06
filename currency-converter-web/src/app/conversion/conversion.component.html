@@ -4,33 +4,38 @@
     <div class="form-group">
       <label for="sourceCurrency" class="col-sm-4 control-label">Source Currency</label>
       <div class="col-xs-8 pull-right">
-          <select class="form-control" id="sourceCurrency">
-              <option *ngFor="let currency of currencyList" value="{{currency.initials}}">{{currency.initials + '-' + currency.description}}</option>
+          <select class="form-control" id="sourceCurrency" name="sourceCurrency" [(ngModel)]="sourceCurrency" #fieldSourceCurrency="ngModel" required>
+              <option *ngFor="let currency of currencyList" value="{{currency.initials}}">{{currency.initials + ' - ' + currency.description}}</option>
           </select>
       </div>
     </div>
-    <div class="form-group">
-      <label  class="col-sm-4 control-label" for="exampleInputAmount">Amount</label>
+    <div [hidden]="!(fieldSourceCurrency.pristine === false)" [ngClass]="((fieldAmount.errors && (fieldAmount.dirty || fieldAmount.touched)) || fieldAmount.value === '0' && (fieldAmount.dirty || fieldAmount.touched)) ? 'form-group has-error' : 'form-group'">
+      <label  class="col-sm-4 control-label" for="amount">Amount</label>
       <div class="col-xs-8 pull-right">
           <div class="input-group">
-              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+              <input type="text" class="form-control" id="amount" name="amount" [(ngModel)]="amount" #fieldAmount="ngModel" placeholder="Amount" required minlength="1">
               <div class="input-group-addon">.00</div>
+          </div>
+          <div *ngIf="((fieldAmount.errors && (fieldAmount.dirty || fieldAmount.touched)) || fieldAmount.value === '0' && (fieldAmount.dirty || fieldAmount.touched))">
+            <span id="helpBlock2" class="help-block" *ngIf="fieldAmount.errors && fieldAmount.errors.required">The amount is required.</span>
+            <span id="helpBlock2" class="help-block" *ngIf="fieldAmount.errors && fieldAmount.errors.minlength">User amount must be at least 1 characters long.</span>
+            <span id="helpBlock2" class="help-block" *ngIf="fieldAmount.value === '0'">User amount be greater than zero.</span>
           </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" [hidden]="!(fieldSourceCurrency.pristine === false && fieldAmount.value > 0)" [ngClass]="( (fieldDestinationCurrency.dirty || fieldDestinationCurrency.touched) && fieldSourceCurrency.value === fieldDestinationCurrency.value || (fieldDestinationCurrency.dirty || fieldDestinationCurrency.touched) && fieldSourceCurrency.errors ) ? 'form-group has-error' : 'form-group'">
       <label for="destinationCurrency" class="col-sm-4 control-label">Destination Currency</label>
       <div class="col-xs-8 pull-right">
-          <select class="form-control" id="destinationCurrency">
-              <option>BAM - Bosnia-Herzegovina Convertible Mark</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+          <select class="form-control" id="destinationCurrency" name="destinationCurrency" [(ngModel)]="destinationCurrency" #fieldDestinationCurrency="ngModel" required>
+              <option *ngFor="let currency of currencyList" value="{{currency.initials}}">{{currency.initials + ' - ' + currency.description}}</option>
           </select>
+          <div *ngIf="( (fieldDestinationCurrency.dirty || fieldDestinationCurrency.touched) && fieldSourceCurrency.value === fieldDestinationCurrency.value || (fieldDestinationCurrency.dirty || fieldDestinationCurrency.touched) && fieldSourceCurrency.errors )">
+            <span id="helpBlock2" class="help-block" *ngIf="fieldDestinationCurrency.errors && fieldDestinationCurrency.errors.required">The destination currency is required.</span>
+            <span id="helpBlock2" class="help-block" *ngIf="fieldSourceCurrency.value === fieldDestinationCurrency.value">Source and destination currencies can not be equal.</span>
+          </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" [hidden]="!(fieldSourceCurrency.pristine === false && fieldAmount.value > 0 && fieldDestinationCurrency.pristine == false)">
       <label class="col-sm-4 control-label" for="disabledTextInput">Result</label>
       <div class="col-xs-8 pull-right">
           <input type="text" id="disabledTextInput" class="form-control" disabled>
