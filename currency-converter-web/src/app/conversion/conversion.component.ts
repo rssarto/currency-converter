@@ -4,6 +4,7 @@ import { CurrencyService } from '../service/currency.service';
 import { Quotation } from '../model/quotation';
 import { HistoricComponent } from '../historic/historic.component';
 import { DataService } from '../service/data.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-conversion',
@@ -11,15 +12,25 @@ import { DataService } from '../service/data.service';
   styleUrls: ['./conversion.component.css']
 })
 export class ConversionComponent implements OnInit {
-
+  subscription: Subscription;
   currencyList: Currency[];
   currency: Currency;
-  sourceCurrency: string;
-  destinationCurrency: string;
-  amount: number;
+  quotation = new Quotation;
   result: number;
 
-  constructor(private currencyService: CurrencyService, private dataService: DataService) { }
+  constructor(private currencyService: CurrencyService, private dataService: DataService) {
+    this.subscription = this.dataService.getHistoricQuotation().subscribe(
+      data => {
+        console.log('received historic quotation');
+        const historicQuotation = data;
+        this.quotation = new Quotation();
+        this.quotation.source = historicQuotation.source;
+        this.quotation.amount = historicQuotation.amount;
+        this.quotation.destination = historicQuotation.destination;
+        this.onConversion();
+      }
+    );
+   }
 
   ngOnInit() {
     this.currencyService.list().subscribe(
@@ -30,23 +41,17 @@ export class ConversionComponent implements OnInit {
   }
 
   onConversion() {
-    // Create quotation to ask for conversion
-    const quotation = new Quotation();
-    quotation.amount = this.amount;
-    quotation.source = this.sourceCurrency;
-    quotation.destination = this.destinationCurrency;
-
-    this.currencyService.quote(quotation).subscribe(
+    this.currencyService.quote(this.quotation).subscribe(
       data => {
         const newQuotation = <Quotation>data;
-        this.result = newQuotation.result;
+        this.quotation.result = newQuotation.result;
         this.announceNewQuotation(newQuotation);
       }
     );
   }
 
   announceNewQuotation(quotation: Quotation) {
-    this.dataService.sendMessage(quotation);
+    this.dataService.sendNewQuotation(quotation);
     console.log('announced new quotation: ' + quotation);
   }
 

@@ -1,3 +1,20 @@
-<p>
-  {{newQuotation.id}}
-</p>
+<div class="container-fluid">
+    <table class="table table-striped">
+      <thead>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+        <th>Result</th>
+        <th>When</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quotation of lastQuotations" (click)="announceHistoricQuotation(quotation)">
+          <td>{{quotation.source}}</td>
+          <td>{{quotation.destination}}</td>
+          <td>{{quotation.amount}}</td>
+          <td>{{quotation.result}}</td>
+          <td>{{quotation.time | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

@@ -16,7 +16,12 @@ export class HistoricComponent implements OnInit {
   lastQuotations: any;
 
   constructor(private dataService: DataService, private currencyService: CurrencyService) {
-    this.subscription = this.dataService.getMessage().subscribe(message => { this.newQuotation = message; });
+    this.subscription = this.dataService.getNewQuotation().subscribe(
+      data => {
+        this.newQuotation = data;
+        this.onHistoric();
+      }
+    );
   }
 
   ngOnInit() {
@@ -31,4 +36,8 @@ export class HistoricComponent implements OnInit {
     );
   }
 
+  announceHistoricQuotation(quotation: Quotation) {
+    this.dataService.sendHistoricQuotation(quotation);
+    console.log('announced historic quotation: ' + quotation);
+  }
 }

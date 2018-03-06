@@ -6,18 +6,33 @@ import { Quotation } from '../model/quotation';
 @Injectable()
 export class DataService {
 
-  private subject = new Subject<Quotation>();
+  private newQuotation = new Subject<Quotation>();
+  private historicQuotation = new Subject<Quotation>();
 
-  sendMessage(message: Quotation) {
-      this.subject.next(message);
+  // Methods to communicate new quotation
+  sendNewQuotation(message: Quotation) {
+      this.newQuotation.next(message);
   }
 
-  clearMessage() {
-      this.subject.next();
+  clearNewQuotation() {
+      this.newQuotation.next();
   }
 
-  getMessage(): Observable<Quotation> {
-      return this.subject.asObservable();
+  getNewQuotation(): Observable<Quotation> {
+      return this.newQuotation.asObservable();
+  }
+
+  // Methods to communicate a quotation selection from historic table
+  sendHistoricQuotation(message: Quotation) {
+    this.historicQuotation.next(message);
+  }
+
+  clearHistoricQuotation() {
+      this.historicQuotation.next();
+  }
+
+  getHistoricQuotation(): Observable<Quotation> {
+      return this.historicQuotation.asObservable();
   }
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="QUOTATION", schema="public")
 public class Quotation {
@@ -26,6 +28,8 @@ public class Quotation {
 	
 	private String source;
 	private String destination;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date time;
 	private long amount;
 	private double result;
