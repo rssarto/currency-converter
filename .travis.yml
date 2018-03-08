@@ -1,3 +1,4 @@
 language: java
 jdk: oraclejdk9
 before_script: cd currency-converter-web
+script: ant -buildfile ./build.xml
