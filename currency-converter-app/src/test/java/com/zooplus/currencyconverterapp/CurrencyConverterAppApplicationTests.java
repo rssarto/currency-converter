@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.converter.app.CurrencyConverterAppApplication;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={CurrencyConverterAppApplication.class})
+@SpringBootTest(classes= {CurrencyConverterAppApplication.class})
 public class CurrencyConverterAppApplicationTests {
 
 	@Test
