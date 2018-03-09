@@ -1,3 +1,8 @@
 language: java
 jdk: oraclejdk9
 before_script: cd currency-converter-app && echo $ENV_DATABASE_URL
+deploy:
+ provider: heroku
+ api-key: 
+  secure: $HEROKU_API_KEY
+ app: currency-converter-rss
