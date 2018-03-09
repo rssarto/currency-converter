@@ -47,6 +47,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		String dbUrl = null;
 
 		String envDatabaseUrl = System.getenv("DATABASE_URL");
+		System.out.println("=======DATABASE_URL: " + envDatabaseUrl);
         if( envDatabaseUrl != null ) {
             try {
             	URI dbUri = new URI(envDatabaseUrl);
