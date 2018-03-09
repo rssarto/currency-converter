@@ -1,5 +1,5 @@
 import { Currency } from './../model/currency';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, Renderer } from '@angular/core';
 import { CurrencyService } from '../service/currency.service';
 import { Quotation } from '../model/quotation';
 import { HistoricComponent } from '../historic/historic.component';
@@ -18,7 +18,12 @@ export class ConversionComponent implements OnInit {
   quotation = new Quotation;
   result: number;
 
-  constructor(private currencyService: CurrencyService, private dataService: DataService) {
+  @ViewChild('fieldSourceCurrency') fileInput: ElementRef;
+
+  constructor(private currencyService: CurrencyService,
+              private dataService: DataService,
+              private changeDetector: ChangeDetectorRef,
+              private renderer: Renderer) {
     this.subscription = this.dataService.getHistoricQuotation().subscribe(
       data => {
         console.log('received historic quotation');
@@ -27,6 +32,7 @@ export class ConversionComponent implements OnInit {
         this.quotation.source = historicQuotation.source;
         this.quotation.amount = historicQuotation.amount;
         this.quotation.destination = historicQuotation.destination;
+        this.changeDetector.detectChanges();
         this.onConversion();
       }
     );
