@@ -53,7 +53,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             	URI dbUri = new URI(envDatabaseUrl);
                 username = dbUri.getUserInfo().split(":")[0];
                 password = dbUri.getUserInfo().split(":")[1];
-                dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslfactory=org.postgresql.ssl.NonValidatingFactory";
+                dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?ssl=true&sslmode=require&sslfactory=org.postgresql.ssl.NonValidatingFactory";
             }catch(Exception ex) {}
         }
         
