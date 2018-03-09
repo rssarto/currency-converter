@@ -1,5 +1,7 @@
 package com.converter.config;
 
+import java.net.URI;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,26 +42,29 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
 	public BasicDataSource dataSource() {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+		String username = null;
+		String password = null;
+		String dbUrl = null;
+
+		String envDatabaseUrl = System.getenv("DATABASE_URL");
+        if( envDatabaseUrl != null ) {
+            try {
+            	URI dbUri = new URI(envDatabaseUrl);
+                username = dbUri.getUserInfo().split(":")[0];
+                password = dbUri.getUserInfo().split(":")[1];
+                dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+            }catch(Exception ex) {}
+        }
+        
         if( dbUrl == null ) {
+        	username = env.getProperty("spring.datasource.username");
+        	password = env.getProperty("spring.datasource.password");
         	dbUrl = env.getProperty("spring.datasource.url");
         }
-        
-        String username = System.getenv("JDBC_DATABASE_USERNAME");
-        if( username == null ) {
-        	username = env.getProperty("spring.datasource.username");
-        }
-        
-        String password = System.getenv("JDBC_DATABASE_PASSWORD");
-        if( password == null ) {
-        	password = env.getProperty("spring.datasource.password");
-        }
-
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
-
         return basicDataSource;
     }
 
