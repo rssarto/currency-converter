@@ -2,7 +2,7 @@ package com.converter.config;
 
 import java.net.URI;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +41,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	private Environment env;
 	
 	@Bean
-	public BasicDataSource dataSource() {
+	public DataSource dataSource() {
 		String username = null;
 		String password = null;
 		String dbUrl = null;
@@ -65,11 +65,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         }
         System.out.printf("\nusername: %1s, password: %2s, databaseurl: %3s", username, password, dbUrl);
         
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-        return basicDataSource;
+        DataSource dataSource = new DataSource();
+	    dataSource.setDriverClassName("org.postgresql.Driver");
+	    dataSource.setUrl(dbUrl);
+	    dataSource.setUsername(username);
+	    dataSource.setPassword(password);
+	    dataSource.setTestOnBorrow(true);
+	    dataSource.setTestWhileIdle(true);
+	    dataSource.setTestOnReturn(true);
+	    dataSource.setValidationQuery("SELECT 1");
+        return dataSource;
     }
 
 }
