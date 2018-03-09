@@ -58,10 +58,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         }
         
         if( dbUrl == null ) {
+        	System.out.println("GETTING DATABASE CONFIG FROM SPRING BOOT CONFIG");
         	username = env.getProperty("spring.datasource.username");
         	password = env.getProperty("spring.datasource.password");
         	dbUrl = env.getProperty("spring.datasource.url");
         }
+        System.out.printf("\nusername: %1s, password: %2s, databaseurl: %3s", username, password, dbUrl);
+        
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
