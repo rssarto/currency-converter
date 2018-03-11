@@ -29,7 +29,7 @@ public class Quotation {
 	private String source;
 	private String destination;
 	
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	private Date time;
 	private long amount;
 	private double result;

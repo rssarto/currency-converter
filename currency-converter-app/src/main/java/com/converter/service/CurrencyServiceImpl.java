@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,7 +71,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 					JsonNode resultNode = this.getNode(rootNode, "result");
 					quotation.setResult(Double.parseDouble(resultNode.asText()));
 				}else {
-					quotation.setResult(5.00);
+					quotation.setResult(ThreadLocalRandom.current().nextDouble());
 				}
 			}catch(IOException ex) {}
 			quotation.setUser(userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName()));
