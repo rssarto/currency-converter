@@ -22,7 +22,7 @@ public class User {
 	@SequenceGenerator(name="user_id_seq", sequenceName="user_id_seq", allocationSize=1)
 	private long id;
 	
-	@Column(unique=true)
+	@Column(unique=true, name="user_name")
 	private String userName;
 	
 	private String password;
@@ -32,6 +32,7 @@ public class User {
 	
 	private String street;
 	
+	@Column(name="zip_code")
 	private String zipCode;
 	
 	private String city;
@@ -41,6 +42,20 @@ public class User {
 	@Basic(fetch=FetchType.LAZY)
 	@OneToMany(mappedBy="user")
 	private List<Quotation> quotations;
+	
+	public User() {}
+
+	public User(String userName, String password, String email, String street, String zipCode, String city,
+			String country) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.street = street;
+		this.zipCode = zipCode;
+		this.city = city;
+		this.country = country;
+	}
 
 	public long getId() {
 		return id;
