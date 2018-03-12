@@ -19,7 +19,7 @@ public class Quotation {
 
 	@Id
 	@GeneratedValue(generator="seq_id_quotation", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="seq_id_quotation", sequenceName="seq_id_quotation")
+	@SequenceGenerator(name="seq_id_quotation", sequenceName="seq_id_quotation", allocationSize=1)
 	private long id;
 	
 	@ManyToOne
