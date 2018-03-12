@@ -16,15 +16,13 @@ import com.converter.controller.UserController;
 import com.converter.model.LoginUser;
 import com.converter.model.User;
 
-/*
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {CurrencyConverterAppApplication.class})
 @PropertySource("classpath:application.properties")
 @WebMvcTest(controllers={AuthenticationController.class, UserController.class})
-*/
 public class AuthenticationControllerTest extends AbstractControllerTest {
 	
-	//@Test
+	@Test
 	public void login() throws Exception {
 		UserControllerTest userControllerTest =  new UserControllerTest();
 		userControllerTest.populateDependencies(this);
