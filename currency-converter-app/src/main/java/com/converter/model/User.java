@@ -1,5 +1,6 @@
 package com.converter.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="USERS", schema="public")
@@ -38,6 +41,10 @@ public class User {
 	private String city;
 	
 	private String country;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
+	@Column(name="birth_date")
+	private Date birthDate;
 	
 	@Basic(fetch=FetchType.LAZY)
 	@OneToMany(mappedBy="user")
