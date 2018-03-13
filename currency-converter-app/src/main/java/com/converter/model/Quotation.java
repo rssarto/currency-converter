@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="QUOTATION", schema="public")
@@ -22,6 +23,7 @@ public class Quotation {
 	@SequenceGenerator(name="seq_id_quotation", sequenceName="seq_id_quotation", allocationSize=1)
 	private long id;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_fk")
 	private User user;

@@ -152,5 +152,5 @@ public class User {
 
 	public void setQuotations(List<Quotation> quotations) {
 		this.quotations = quotations;
-	}
+	}		
 }
