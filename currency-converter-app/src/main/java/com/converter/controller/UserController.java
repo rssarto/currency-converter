@@ -2,6 +2,8 @@ package com.converter.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +31,7 @@ public class UserController {
     }
     
     @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public User saveUser(@RequestBody User user)throws Exception{
+    public User saveUser(@Valid @RequestBody User user)throws Exception{
     	return userService.save(user);
     }    
 

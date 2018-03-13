@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -25,23 +26,31 @@ public class User {
 	@SequenceGenerator(name="user_id_seq", sequenceName="user_id_seq", allocationSize=1)
 	private long id;
 	
+	@NotNull(message="The user name is mandatory")
 	@Column(unique=true, name="user_name")
 	private String userName;
 	
+	@NotNull(message="The password is mandatory")
 	private String password;
 	
+	@NotNull(message="The email is mandatory")
 	@Column(unique=true)
 	private String email;
 	
+	@NotNull(message="The street is mandatory")
 	private String street;
 	
+	@NotNull(message="The zip code is mandatory")
 	@Column(name="zip_code")
 	private String zipCode;
 	
+	@NotNull(message="The city is mandatory")
 	private String city;
 	
+	@NotNull(message="The country is mandatory")
 	private String country;
 	
+	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
 	@Column(name="birth_date")
 	private Date birthDate;
