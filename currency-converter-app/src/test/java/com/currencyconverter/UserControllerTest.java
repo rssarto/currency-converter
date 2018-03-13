@@ -2,6 +2,7 @@ package com.currencyconverter;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Assert;
@@ -50,6 +51,62 @@ public class UserControllerTest extends AbstractControllerTest {
 		this.addUser(newUser);
 	}
 	
+	@Test
+	public void addUserWithNullBirthDate()throws Exception {
+		User user = getNewUser();
+		user.setBirthDate(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullUserName() throws Exception {
+		User user = getNewUser();
+		user.setUserName(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullEmail() throws Exception {
+		User user = getNewUser();
+		user.setEmail(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void addUserWitNullCountry() throws Exception {
+		User user = getNewUser();
+		user.setCountry(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullZipCode() throws Exception {
+		User user = getNewUser();
+		user.setZipCode(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullStreetAddress() throws Exception {
+		User user = getNewUser();
+		user.setStreet(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullCity() throws Exception {
+		User user = getNewUser();
+		user.setCity(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void addUserWitNullPassword() throws Exception {
+		User user = getNewUser();
+		user.setPassword(null);
+		this.addUser(user).andExpect(status().isBadRequest());
+	}
+	
 	public ResultActions addUser(User user) throws Exception {
 		return executePostRequest("/signup", user);
 	}
@@ -65,7 +122,7 @@ public class UserControllerTest extends AbstractControllerTest {
 	
 	public User getNewUser() {
 		int randomInt = ThreadLocalRandom.current().nextInt();
-		return new User("teste" + randomInt, "123456", "teste" + randomInt + "@teste.com.br", "Rua Marcondes do Amaral, " + randomInt, "03661-000", "SAO PAULO", "BRAZIL");
+		return new User("teste" + randomInt, "123456", "teste" + randomInt + "@teste.com.br", "Rua Marcondes do Amaral, " + randomInt, "03661-000", "SAO PAULO", "BRAZIL", new Date());
 	}
 
 }

@@ -62,7 +62,7 @@ public class User {
 	public User() {}
 
 	public User(String userName, String password, String email, String street, String zipCode, String city,
-			String country) {
+			String country, Date birthDate) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -71,6 +71,7 @@ public class User {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.country = country;
+		this.birthDate = birthDate;
 	}
 
 	public long getId() {
@@ -136,7 +137,20 @@ public class User {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
-	
-	
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public List<Quotation> getQuotations() {
+		return quotations;
+	}
+
+	public void setQuotations(List<Quotation> quotations) {
+		this.quotations = quotations;
+	}
 }

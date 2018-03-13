@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 
 public class AbstractControllerTest {
 	
-	protected static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+	protected static final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 	
 	@Autowired
 	protected MockMvc mvc;
