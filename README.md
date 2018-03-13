@@ -3,7 +3,8 @@ This project represents the back-end app that serves currency-converter-web app.
 
 # Build
 After cloning the repository go to the repository folder and open the project folder with the command below:
-  cd currency-converter
+  cd currency-converter-app
+  
 Since inside the project folder execute the command below to package the application ina runnable jar.
   mvn package
 
