@@ -5,6 +5,7 @@ This applicaton is built upon Spring boot v1.5.9. and the concepts below were ap
 <ul>
   <li>Rest API;</li>
   <li>Spring Security customization for authentication and autorization using Jwt - Json Web Tokens;</li>
+  <li>Cors - Cross origin source sharing;</li>
   <li>Spring Data for persistence usig Repository concept;</li>
   <li>Travis-ci for continous integration using Heroku PaaS.</li>
 </ul>
