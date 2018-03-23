@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.converter.model.User;
 import com.converter.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 public class UserController {
 	
@@ -25,8 +28,9 @@ public class UserController {
         return userService.findAll();
     }
 
+    @ApiOperation(value="Find user by Id", notes="${UserController.getOne.notes}")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public User getOne(@PathVariable(value = "id") Long id){
+    public User getOne(@ApiParam(value="${UserController.getOne.id}", required=true, allowEmptyValue=false)@PathVariable(value = "id") Long id){
         return userService.findById(id);
     }
     
