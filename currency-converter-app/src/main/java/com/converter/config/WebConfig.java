@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -103,7 +104,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     	JpaTransactionManager transactionManager = new JpaTransactionManager();
     	transactionManager.setEntityManagerFactory(entityManagerFactory);
     	return transactionManager;
-    }    
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+      registry.addResourceHandler("swagger-ui.html")
+          .addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
+      registry.addResourceHandler("/webjars/**")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
+      super.addResourceHandlers(registry);
+    }    
 }
 
