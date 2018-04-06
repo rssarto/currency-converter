@@ -64,8 +64,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public User findOne(String userNamePassword) {
-		return userDao.findByUserName(userNamePassword);
+	public User findOne(String userNamePassword) throws UsernameNotFoundException {
+		User user = userDao.findByEmail(userNamePassword);
+		if( user == null ) {
+			user = userDao.findByUserName(userNamePassword);
+			if( user == null ) {
+				throw new UsernameNotFoundException("Invalid user name or password.");	
+			}
+		}		
+		
+		return user;
 	}
 
 	@Override
@@ -80,13 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userNameEmail) throws UsernameNotFoundException {
-		User user = userDao.findByEmail(userNameEmail);
-		if( user == null ) {
-			user = userDao.findByUserName(userNameEmail);
-			if( user == null ) {
-				throw new UsernameNotFoundException("Invalid user name or password.");	
-			}
-		}
+		User user = this.findOne(userNameEmail);
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), getAuthority());
 	}
 	
